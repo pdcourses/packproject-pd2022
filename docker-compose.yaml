@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    stdin_open: true
+    depends_on:
+      - server
+    volumes:
+      - ./client:/client
+
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+      STATIC_DATA_PATH: /server/public/
+    stdin_open: true
+    depends_on:
+      - db_server
+    volumes:
+      - /var/www/html/images:/var/html/images
+
+  db_server:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=todo
+  

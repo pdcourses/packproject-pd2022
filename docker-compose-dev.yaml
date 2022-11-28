@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile-dev
+    environment:
+      NODE_ENV: development
+    stdin_open: true
+    depends_on:
+      - server
+    volumes:
+      - ./client:/client
+    ports:
+      - '3000:3000'
+
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile-dev
+    environment:
+      NODE_ENV: development
+      STATIC_DATA_PATH: /server/public/
+    stdin_open: true
+    depends_on:
+      - db_server
+    volumes:
+      - ./server:/server
+    ports:
+      - '5000:5000'
+
+  db_server:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=todo-test
+    ports:
+      - '5432:5432'
+  

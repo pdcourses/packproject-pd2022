@@ -1,0 +1,9 @@
+0 silly argv {
+0 silly argv   _: [ 'create' ],
+0 silly argv   lernaVersion: '6.0.1',
+0 silly argv   '$0': 'lerna',
+0 silly argv   name: 'server'
+0 silly argv }
+1 notice cli v6.0.1
+2 verbose rootPath /home/user/Documents/pd2022-1/packproject
+3 error
